@@ -1,0 +1,43 @@
+Voici quelques exemples d'applications web islamiques existantes, qui peuvent t'inspirer pour ton propre projet :
+
+1. **Quran.com** :
+   - Fonctionnalités : Une plateforme en ligne pour lire et écouter le Coran avec traduction, tafsir, et récitations de différents Qaris. Elle offre également des outils pour explorer les versets par sujet, ainsi qu'un mode de lecture en ligne avec des options de personnalisation.
+   - Site web : [quran.com](https://quran.com)
+
+2. **IslamicFinder.org** :
+   - Fonctionnalités : Une plateforme web qui propose les horaires de prière, la direction de la Qibla, des informations sur les événements islamiques, et une section de ressources islamiques, y compris des articles et des livres.
+   - Site web : [islamicfinder.org](https://www.islamicfinder.org)
+
+3. **Zakat.org** :
+   - Fonctionnalités : Un site web permettant aux utilisateurs de calculer leur zakat, de comprendre comment la zakat est calculée selon les différentes écoles de pensée et de faire des dons directement à des causes caritatives.
+   - Site web : [zakat.org](https://www.zakat.org)
+
+4. **Alim.org** :
+   - Fonctionnalités : Une plateforme d'apprentissage en ligne qui propose des cours sur le Coran, les hadiths, la jurisprudence islamique, et d'autres matières religieuses. Elle inclut aussi des outils pour lire le Coran en ligne avec traduction et tafsir.
+   - Site web : [alim.org](https://www.alim.org)
+
+5. **Muslim Pro Web** :
+   - Fonctionnalités : En plus de l’application mobile, Muslim Pro offre une version web pour consulter les horaires de prière, écouter le Coran, et trouver des restaurants halal et des mosquées à proximité.
+   - Site web : [muslimpro.com](https://www.muslimpro.com)
+
+6. **Hajj and Umrah Web Portal** :
+   - Fonctionnalités : Un portail web complet pour planifier et organiser le Hajj et la Omra. Il fournit des informations sur les étapes du pèlerinage, des guides interactifs, des cartes, des vidéos explicatives, et des services d’accompagnement.
+   - Exemple : [hajjumrah.com](https://www.hajjumrah.com) (ou autres sites similaires)
+
+7. **Sunnah.com** :
+   - Fonctionnalités : Une base de données en ligne qui regroupe les hadiths du Prophète Muhammad (paix et bénédiction sur lui) selon les différentes collections (Sahih Bukhari, Sahih Muslim, etc.). Le site permet de rechercher, lire et étudier les hadiths facilement.
+   - Site web : [sunnah.com](https://sunnah.com)
+
+8. **HalalTrip** :
+   - Fonctionnalités : Un site web offrant des informations pour les voyageurs musulmans, y compris des recommandations sur les hôtels halal, les restaurants, les mosquées, et des conseils pratiques pour voyager selon les principes islamiques.
+   - Site web : [halaltrip.com](https://www.halaltrip.com)
+
+9. **Qibla Finder** :
+   - Fonctionnalités : Un outil web qui permet de trouver la direction de la Qibla en utilisant la géolocalisation ou en entrant des coordonnées manuellement. 
+   - Site web : [qiblafinder.com](https://www.qiblafinder.com)
+
+10. **Islamic Online University (IOU)** :
+    - Fonctionnalités : Une plateforme web qui propose des cours en ligne sur diverses disciplines islamiques, allant de l’étude du Coran et des hadiths à des matières plus avancées comme la jurisprudence islamique.
+    - Site web : [iou.edu.gm](https://www.iou.edu.gm)
+
+Ces applications web couvrent une large gamme de services allant de l'apprentissage et la lecture religieuse à l'organisation du voyage spirituel et la gestion des actes de charité. Elles sont de bons exemples d'intégration des principes islamiques dans des solutions numériques pratiques.
