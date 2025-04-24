@@ -1,0 +1,25 @@
+<div class="login-container">
+    <div class="login-card">
+      <h2 class="title">🔒 Connexion à <span>AL_Tebyan</span></h2>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="Entrez votre email" />
+        </div>
+  
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" formControlName="password" placeholder="Mot de passe" />
+        </div>
+  
+        <button class="login-btn" type="submit">Connexion</button>
+      </form>
+  
+      <p class="signup-link">
+        Pas de compte ?
+        <a routerLink="/signup">Créer un compte</a>
+      </p>
+    </div>
+  </div>
+  
