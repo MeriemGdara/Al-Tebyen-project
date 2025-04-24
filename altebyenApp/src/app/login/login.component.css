@@ -1,82 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri&family=Cairo:wght@400;700&display=swap');
+
 .login-container {
-    min-height: 100vh;
-    background: linear-gradient(to top right, #eef2f3, #8e9eab);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .login-card {
-    background-color: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .title {
-    margin-bottom: 30px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .title span {
-    color: #1a6642; /* Couleur verte islamique */
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-    text-align: left;
-  }
-  
-  .form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #444;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    transition: all 0.3s;
-  }
-  
-  .form-group input:focus {
-    outline: none;
-    border-color: #1a6642;
-    box-shadow: 0 0 5px rgba(26, 102, 66, 0.3);
-  }
-  
-  .login-btn {
-    background-color: #1a6642;
-    color: white;
-    padding: 12px 0;
-    width: 100%;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .login-btn:hover {
-    background-color: #145232;
-  }
-  
-  .signup-link {
-    margin-top: 20px;
-    font-size: 14px;
-  }
-  
-  .signup-link a {
-    color: #1a6642;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f6f1e9, #e3d5ca);
+  direction: rtl;
+  font-family: 'Cairo', 'Amiri', serif;
+}
+
+.login-card {
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #5e3023;
+  text-align: center;
+}
+
+.title span {
+  color: #9a031e;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Cairo', sans-serif;
+}
+
+.login-btn {
+  width: 100%;
+  background-color: #9a031e;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #7b0223;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.signup-link a {
+  color: #5e3023;
+  text-decoration: none;
+  font-weight: bold;
+}
