@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,21 +14,39 @@ export class LoginComponent {
   loginForm: FormGroup;
   showError = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required]]
     });
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      console.log('Connexion avec :', email, password);
-      // Tu peux appeler le service ici
-      this.showError = false;
-    } else {
+    if (this.loginForm.invalid) {
       this.showError = true;
+      return;
     }
+
+    const { email, password } = this.loginForm.value;
+
+    this.authService.authenticate(email, password).pipe(
+      catchError(error => {
+        console.error('Erreur d\'authentification:', error);
+        this.showError = true;
+        return of(null);
+      })
+    ).subscribe(user => {
+      if (user) {
+        this.showError = false;
+        console.log('✅ Connexion réussie avec :', user.email);
+        this.router.navigate(['/home']);
+      } else {
+        this.showError = true;
+      }
+    });
   }
 }
