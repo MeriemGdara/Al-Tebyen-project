@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -8,19 +10,43 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SignupComponent {
   signupForm: FormGroup;
+  emailExists = false;
+  success = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.signupForm = this.fb.group({
       fullname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   onSubmit() {
     if (this.signupForm.valid) {
-      console.log('✅ Utilisateur inscrit :', this.signupForm.value);
-      // À toi d'ajouter ici la logique pour sauvegarder ou envoyer les données
+      const { fullname, email, password } = this.signupForm.value;
+
+      // Vérifie si l'email existe déjà
+      this.authService.isEmailTaken(email).subscribe(isTaken => {
+        if (isTaken) {
+          this.emailExists = true;
+          this.success = false;
+        } else {
+          // Enregistre le nouvel utilisateur
+          this.authService.register(email, password).subscribe(user => {
+            console.log('Utilisateur enregistré :', user.email);
+            this.success = true;
+            this.emailExists = false;
+            this.signupForm.reset();
+
+            // Redirection vers la page de login après l'inscription réussie
+            this.router.navigate(['/login']);
+          });
+        }
+      });
     }
   }
 }
