@@ -29,21 +29,17 @@ export class SignupComponent {
     if (this.signupForm.valid) {
       const { fullname, email, password } = this.signupForm.value;
 
-      // Vérifie si l'email existe déjà
       this.authService.isEmailTaken(email).subscribe(isTaken => {
         if (isTaken) {
           this.emailExists = true;
           this.success = false;
         } else {
-          // Enregistre le nouvel utilisateur
-          this.authService.register(email, password).subscribe(user => {
+          this.authService.register(fullname, email, password).subscribe(user => {
             console.log('Utilisateur enregistré :', user.email);
             this.success = true;
             this.emailExists = false;
             this.signupForm.reset();
-
-            // Redirection vers la page de login après l'inscription réussie
-            this.router.navigate(['/login']);
+            this.router.navigate(['/Login']);
           });
         }
       });

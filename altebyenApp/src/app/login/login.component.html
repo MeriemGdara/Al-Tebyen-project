@@ -13,6 +13,8 @@
         <input type="password" formControlName="password" placeholder="أدخل كلمة المرور" />
       </div>
 
+      <p *ngIf="showError" class="error">❌ البريد الإلكتروني أو كلمة المرور غير صحيحة</p>
+
       <button class="login-btn" type="submit">تسجيل الدخول</button>
     </form>
 
