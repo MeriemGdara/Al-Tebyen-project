@@ -1,0 +1,80 @@
+<div class="home-container">
+  <!-- Colonne gauche : Vidéo + texte -->
+  <div class="video-container">
+    <video autoplay muted loop>
+      <source src="assets/demo.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la balise vidéo.
+    </video>
+
+    <div class="association-description">
+      <h2>تعريف الجمعية</h2>
+      <p>
+        الفرع المحلي التبيان جمعية قرآنية تربوية تهدف إلى تعليم وتجويد القرآن الكريم وترسيخ القيم الإسلامية لدى الأطفال والكبار،
+        في إطار تربوي وروحي يراعي احتياجات مختلف الفئات العمرية. تسعى الجمعية إلى بناء جيلٍ متمسّك بهويته
+        الدينية، متمكّن من فهم تعاليم الإسلام ومبادئه السمحة، من خلال برامج تعليمية منتظمة تشمل دروس الحفظ،
+        التفسير، التجويد، والفقه، إلى جانب تنظيم أنشطة ثقافية واجتماعية تُسهم في نشر الخير والتكافل.
+        أسست الجمعية في 30 ديسمبر 2023 بمبادرة كريمة من السيدة حفيظة داود.
+      </p>
+     <h2>جـــدول الأوقــات </h2>
+     <img src="assets/temps.png" alt="emploi" class="emploi"/>
+    </div>
+    <div class="contact-form-container">
+      <h3>تواصل معنا</h3>
+      <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+        <div class="form-group">
+          <label for="name">الاسم واللقب</label>
+          <input type="text" id="name" class="form-control" required [(ngModel)]="contact.name" name="name" #name="ngModel">
+          <div *ngIf="name.invalid && name.touched" class="error">يجب عليك ادخال الاسم واللقب</div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">البريد الالكتروني</label>
+          <input type="email" id="email" class="form-control" required [(ngModel)]="contact.email" name="email" #email="ngModel">
+          <div *ngIf="email.invalid && email.touched" class="error">يجب عليك ادخال البريد الالكتروني</div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">محتوى الرسالة</label>
+          <textarea id="message" class="form-control" required [(ngModel)]="contact.message" name="message" #message="ngModel"></textarea>
+          <div *ngIf="message.invalid && message.touched" class="error">يجب عليك ادخال محتوى الرسالة</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">ارسال</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Colonne droite : les 2 iframes -->
+  <div class="widget-container">
+    <iframe
+      title="prayerWidget"
+      class="widget-frame"
+      scrolling="no"
+      src="https://www.islamicfinder.org/prayer-widget/2468579/shafi/1/0/18.0/17.0">
+    </iframe>
+
+    <iframe
+      title="islamic-calendar"
+      class="calendar-frame"
+      scrolling="no"
+      src="https://www.islamicfinder.org/islamic-calendar/widgetGregorian?type=Gregorian">
+    </iframe>
+    <div class="info-blocks">
+      <div class="info-block">
+        <h3>حديث اليوم</h3>
+        <p>{{ hadith }}</p>
+      </div>
+      <div class="info-block">
+        <h3>ذكر اليوم</h3>
+        <p>{{ dhikr }}</p>
+      </div>
+      <div class="info-block">
+        <h3>آية اليوم</h3>
+        <p>{{ ayah }}</p>
+      </div>
+    </div>
+
+
+
+
+</div>

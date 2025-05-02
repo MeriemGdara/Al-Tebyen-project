@@ -8,7 +8,7 @@ import { ZakatComponent } from './zakat/zakat.component';
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'home', component: HomeComponent},
+  { path: '', component: HomeComponent},
   { path: 'zakat', component: ZakatComponent},
   { path: '', redirectTo: '/', pathMatch: 'full' },
 ];

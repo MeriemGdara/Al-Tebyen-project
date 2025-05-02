@@ -1,0 +1,180 @@
+/* Conteneur principal */
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Colonne vidéo + description */
+.video-container {
+  flex: 1 1 100%;
+  width: 50%; /* selon ta demande */
+  max-width: 80%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Description sous la vidéo */
+.association-description {
+  margin-top: 20px;
+  background-color: #f7f7f7;
+  padding: 15px;
+  border-left: 6px solid #004d00;
+  font-size: 18px;
+  line-height: 1.8;
+  direction: rtl;
+  border-radius: 6px;
+}
+
+h2 {
+  font-weight: 700;
+  color: #004d00;
+  margin-bottom: 10px;
+}
+
+/* Image emploi du temps */
+.emploi {
+  display: block;
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Section Contact */
+.contact-form-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30px 20px;
+  background-color: #f7f7f7;
+  border-top: 2px solid #004d00;
+  margin-top: 20px; /* Espacement après l'image emploi du temps */
+  direction: rtl;
+}
+
+.contact-form-container h3 {
+  font-size: 24px;
+  color: #004d00;
+  margin-bottom: 20px;
+  font-weight: bold;
+  direction: rtl;
+
+}
+
+.contact-form-container .form-group {
+  margin-bottom: 15px;
+}
+
+.contact-form-container .form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.contact-form-container button {
+  padding: 12px 20px;
+  background-color: #004d00;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.contact-form-container button:hover {
+  background-color: #0ab85e;
+}
+
+/* Widgets */
+.widget-container {
+  flex: 0 0 230px; /* largeur fixe et réduite */
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.widget-frame,
+.calendar-frame {
+  width: 100%;
+  border: 1px solid #0ab85e;
+  border-radius: 6px;
+}
+
+.widget-frame {
+  height: 358px;
+}
+
+.calendar-frame {
+  height: 312px;
+}
+
+/* Blocs حديث / ذكر / آية */
+/* Container des blocs */
+.info-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 40px;
+  direction: rtl;
+}
+
+/* Bloc individuel */
+.info-block {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-right: 4px solid #333;
+  border-radius: 6px;
+  font-size: 17px;
+  line-height: 1.7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: right;
+}
+
+/* Titre de chaque bloc */
+.info-block h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Responsive : petits écrans */
+@media (max-width: 768px) {
+  .home-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .video-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .widget-container {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .association-description {
+    font-size: 16px;
+  }
+
+  .info-block {
+    font-size: 16px;
+  }
+}

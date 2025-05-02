@@ -8,7 +8,7 @@ const port = 3000;
 app.use(cors()); // ✅ Autoriser les requêtes CORS depuis localhost:4200
 app.use(bodyParser.json());
 
-// ✅ Route : vérifier si l'email existe
+// ✅ Route pour vérifier si l'email existe
 app.get('/emailExists', (req, res) => {
   const { email } = req.query;
 
@@ -31,7 +31,7 @@ app.get('/emailExists', (req, res) => {
   });
 });
 
-// ✅ Route : login
+// ✅ Route pour login
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -57,7 +57,7 @@ app.post('/login', (req, res) => {
   });
 });
 
-// ✅ Route : register
+// ✅ Route pour signup
 app.post('/signup', (req, res) => {
   const { email, password } = req.body;
 
@@ -90,7 +90,37 @@ app.post('/signup', (req, res) => {
   });
 });
 
-// ✅ Lancer le serveur
-app.listen(port, () => {
-  console.log(`✅ Serveur lancé sur http://localhost:${port}`);
+// ✅ Nouvelle route pour enregistrer un message de contact
+fs.readFile('contactMessages.json', (err, data) => {
+  if (err) {
+    console.error('Erreur lors de la lecture du fichier contactMessages.json:', err);
+    // Créer un fichier vide si il n'existe pas
+    fs.writeFile('contactMessages.json', JSON.stringify([]), (writeError) => {
+      if (writeError) {
+        return res.status(500).send('Erreur lors de la création du fichier contactMessages.json.');
+      }
+      console.log('Fichier créé');
+    });
+    return res.status(500).send('Erreur de lecture du fichier.');
+  }
+
+  let messages;
+  try {
+    messages = JSON.parse(data);
+  } catch (parseError) {
+    console.error('Erreur de parsing JSON :', parseError);
+    return res.status(500).send('Fichier JSON invalide.');
+  }
+
+  // Ajouter le message et sauvegarder
+  const newMessage = { name, email, message, timestamp: new Date() };
+  messages.push(newMessage);
+
+  fs.writeFile('contactMessages.json', JSON.stringify(messages, null, 2), (err) => {
+    if (err) {
+      console.error('Erreur lors de l\'écriture dans le fichier contactMessages.json:', err);
+      return res.status(500).send('Erreur d\'écriture dans le fichier.');
+    }
+    res.status(201).json({ message: 'Message enregistré avec succès.' });
+  });
 });

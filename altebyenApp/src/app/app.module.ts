@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { ZakatComponent } from './zakat/zakat.component';
+import { FormsModule } from '@angular/forms';  // Ajoute cette ligne
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { ZakatComponent } from './zakat/zakat.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

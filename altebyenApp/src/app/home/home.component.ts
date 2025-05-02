@@ -6,5 +6,77 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  hadith: string = '';
+  dhikr: string = '';
+  ayah: string = '';
 
+  private ahadith: string[] = [
+    'إنما الأعمال بالنيات',
+    'لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه',
+    'الدين النصيحة',
+    'من لا يشكر الناس لا يشكر الله',
+    'أحب الأعمال إلى الله أدومها وإن قل',
+    'المرء مع من أحب',
+    'من غشنا فليس منا',
+    'إذا أراد الله بعبده خيرًا عجل له العقوبة في الدنيا',
+    'من صبر ظفر',
+    'الكلمة الطيبة صدقة'
+  ];
+
+  private adhkar: string[] = [
+    'سبحان الله وبحمده، سبحان الله العظيم',
+    'لا إله إلا الله وحده لا شريك له',
+    'اللهم صل وسلم على نبينا محمد',
+    'استغفر الله',
+    'اللهم إني أسالك العفو والعافية',
+    'سبحان الله والحمد لله ولا إله إلا الله والله أكبر',
+    'اللهم لا سهل إلا ما جعلته سهلًا',
+    'اللهم اجعلنا من أهل القرآن',
+    'اللهم أجرنا من النار',
+    'اللهم إني أعوذ بك من شر ما عملت'
+  ];
+
+  private ayat: string[] = [
+    'وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ – هود: 88',
+    'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا – الشرح: 6',
+    'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ – البقرة: 153',
+    'إِنَّ مَعَ الْعُسْرِ يُسْرًا – الشرح: 6',
+    'قُلْ رَبُّ زِدْنِي عِلْمًا – طه: 114',
+    'إِنَّ اللَّهَ غَفُورٌ رَحِيمٌ – النساء: 96',
+    'إِنَّ اللَّهَ قَوِيٌّ عَزِيزٌ – الفتح: 21',
+    'إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تَؤَدُّوا الأَمَانَاتِ إِلَى أَهْلِهَا – النساء: 58',
+    'يُحْشَرُونَ إِلَى جَهَنَّمَ جَثِيًّا – الأنبياء: 98',
+    'وَقُل رَّبُّ أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ – المؤمنون: 97'
+  ];
+
+
+  ngOnInit() {
+    this.hadith = this.getRandomItem(this.ahadith);
+    this.dhikr = this.getRandomItem(this.adhkar);
+    this.ayah = this.getRandomItem(this.ayat);
+  }
+
+  private getRandomItem(arr: string[]): string {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+  contact = {
+    name: '',
+    email: '',
+    message: ''
+  };
+
+  onSubmit() {
+    // Vérifie si le localStorage contient déjà des messages
+    let messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+
+    // Ajoute le message actuel à la liste des messages
+    messages.push(this.contact);
+
+    // Enregistre la liste mise à jour dans localStorage
+    localStorage.setItem('contactMessages', JSON.stringify(messages));
+
+    // Réinitialise le formulaire
+    this.contact = { name: '', email: '', message: '' };
+    alert('Message envoyé avec succès!');
+  }
 }
