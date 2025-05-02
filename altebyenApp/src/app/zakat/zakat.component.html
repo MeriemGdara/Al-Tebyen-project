@@ -79,6 +79,29 @@
           <p>قال الله تعالى: "وَأَقِيمُوا۟ ٱلزَّكَاةَ وَءَاتُوا۟ ٱلزَّكَاةَ" (البقرة: ٢٤٣)</p>
         </blockquote>
         <p>لحساب الزكاة، يتم تحديد قيمة النصاب أولاً. ثم يتم تحديد نسبة الزكاة المطلوبة، وهي عادة 2.5% من المال الذي يتجاوز النصاب ويظل في ملكية الشخص لمدة سنة هجرية كاملة. يمكن أن يختلف المبلغ بناءً على نوع المال ومصدره، مثل المال النقدي أو البضائع التجارية أو المحاصيل الزراعية.</p>
+        
+        <!-- Formulaire pour calculer la zakat -->
+        <div class="zakat-form">
+          <h3>حساب الزكاة</h3>
+          <form (ngSubmit)="calculerZakat()">
+            <label for="montant">المبلغ الذي تملكه:</label>
+            <input type="number" id="montant" [(ngModel)]="montant" name="montant" required>
+            
+            <label for="type">نوع المال:</label>
+            <select id="type" [(ngModel)]="type" name="type" required>
+              <option value="argent">مال نقدي</option>
+              <option value="bazar">بضائع تجارية</option>
+              <option value="agriculture">محاصيل زراعية</option>
+            </select>
+            
+            <button type="submit">حساب الزكاة</button>
+          </form>
+      
+          <div *ngIf="zakatResult !== null">
+            <h4>نتيجة الزكاة:</h4>
+            <p>الزكاة المستحقة: {{ zakatResult }} دينار</p>
+          </div>
+        </div>
       </div>
     </ng-container>
   </div>

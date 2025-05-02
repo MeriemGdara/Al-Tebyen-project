@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ZakatComponent {
   selectedCard: string | null = null;
+  
 
   cards = [
     {
@@ -65,6 +66,23 @@ showContent(content: string) {
   setTimeout(() => {
     this.selectedContent = content;
   }, 50);
+}
+
+
+montant: number = 0;  // Déclarez la propriété montant
+type: string = 'argent';
+zakatResult: number | null = null;
+
+calculerZakat() {
+  // La zakat est 2.5% du montant qui dépasse le seuil (Nisab)
+  const nisab = 5000; // Exemple de seuil (Nisab) en dinars
+  let zakat = 0;
+
+  if (this.montant >= nisab) {
+    zakat = (this.montant - nisab) * 0.025;
+  }
+
+  this.zakatResult = zakat;
 }
 
 }
