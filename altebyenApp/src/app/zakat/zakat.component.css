@@ -2,163 +2,225 @@
 
 body, html {
   overflow: auto;
+  margin: 0;
+  padding: 0;
+  font-family: 'Cairo', sans-serif;
+  background-color: #f9f9f9;
 }
+
 .zakat-page {
   padding: 2rem;
-  background-color: #f9f9f9;
-  min-height:auto;
-  direction: rtl;
-  font-family: 'Cairo';
+  min-height: auto;
+  font-family: 'Cairo', sans-serif;
 }
 
 .cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
   margin-top: 3em;
+  text-align: center;
+  flex-wrap: nowrap;
 }
 
 .card {
   background-color: #e0f2d8;
   border-radius: 15px;
-  text-align: center;
   padding: 1.5rem;
   width: 15%;
   min-width: 140px;
   max-width: 180px;
-  position: relative;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #217225; /* Texte vert par défaut */
+  color: #217225;
   font-family: 'Cairo';
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .card .icon {
   font-size: 2.5rem;
-  color: #217225; /* Couleur de l'icône par défaut */
+  color: #217225;
   margin-bottom: 0.5rem;
   transition: color 0.3s;
 }
 
 .card:hover,
-.card.active { /* Ajout de active */
+.card.active {
   transform: translateY(-5px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   background-color: #006400;
-  color: #fff; /* Texte blanc au survol */
+  color: #fff;
 }
 
 .card:hover .icon,
 .card.active .icon {
-  color: #fff; /* Icône blanche au survol */
+  color: #fff;
 }
 
-/* La bulle d'information */
 .bubble {
-  position: relative;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80vw;
-  max-width: 1500px;
-  min-height: 600px;
-  background: #e0f2d8;
-  border: 3px dashed #217225;
+  flex: 1;
+  margin-right: 5%;
+  max-width: 1100px;
+  background-color: #ffffff;
   border-radius: 20px;
   padding: 2rem;
-  z-index: 1000;
-  animation: bubbleFade 0.5s ease forwards;
-  text-align: center;
-  overflow-y: auto;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  line-height: 2;
+  animation: fadeInUp 1s ease forwards;
   font-family: 'Cairo';
-  font-size: 1.4rem;
-  line-height: 1.8;
+  direction: rtl;
+  text-align: right;
+  margin-top: 10px;
+  position: relative;
+}
+
+.ayat {
+  font-family: 'Cairo';
+  font-size: 1.5rem;
+  background-color: #f0f8ec;
+  border-right: 5px solid #217225;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.icon-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: right;
+}
+
+.icon-large {
+  font-size: 2.5rem;
+  color: #217225;
+  text-align: center;
+}
+
+.horizontal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  justify-content: flex-start;
+}
+
+.horizontal-list .item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f0f8ec;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  flex: 1 1 200px;
+  color: #155f19;
+  font-weight: bold;
+  direction: rtl;
+  justify-content: flex-start;
+}
+
+.horizontal-list .item i {
+  font-size: 1.3rem;
+  color: #155f19;
+}
+
+.zakat-form {
+  margin-top: 2rem;
+  background-color: #eafaf0;
+  padding: 1.5rem;
+  border-radius: 15px;
+  direction: rtl;
+  text-align: right;
+}
+
+.zakat-form h3 {
+  color: #006400;
+  margin-bottom: 1rem;
+}
+
+.zakat-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.zakat-form input,
+.zakat-form select {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: 'Cairo';
+}
+
+.zakat-form button {
+  background-color: #217225;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  font-family: 'Cairo';
+}
+
+.zakat-form button:hover {
+  background-color: #005a00;
+}
+
+.zakat-form h4 {
+  margin-top: 1.5rem;
   color: #006400;
 }
 
-/* Petite flèche de la bulle */
-.bubble-arrow {
-  position: absolute;
-  top: -10px;
-  right: 50%;
-  transform: translateX(50%);
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #d8f3dc;
+.zakat-form p {
+  font-size: 1.1rem;
+  color: #444;
 }
 
-/* Animation */
-@keyframes bubbleFade {
-  0% {
+@keyframes fadeInUp {
+  from {
     opacity: 0;
-    transform: translateX(-50%) scale(0.8);
+    transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: translateY(0);
   }
 }
 
-  .bubble form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .bubble label {
-    font-size: 1.2rem;
-    color: #2d6a4f;
-    font-weight: bold;
-    align-self: flex-start;
-  }
-  
-  .bubble input,
-  .bubble select,
-  .bubble textarea {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 2px solid #95d5b2;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    background-color: #fff;
-    font-family: 'Cairo';
-    transition: border 0.3s;
-  }
-  
-  .bubble input:focus,
-  .bubble select:focus,
-  .bubble textarea:focus {
-    outline: none;
-    border-color: #40916c;
-    box-shadow: 0 0 5px rgba(64, 145, 108, 0.5);
-  }
-  
-  .bubble button {
-    background-color: #2d6a4f;
-    color: white;
-    font-size: 1.2rem;
-    padding: 0.7rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .bubble button:hover {
-    background-color: #1b4332;
-  }
-  .ayat {
-    font-family: 'Amiri', serif;
-
+.daily-info {
+  position: relative;
+  background-color: #f6eed7;
+  padding: 16px;
+  border-radius: 8px;
+  max-width: 280px;
+  height: 600px;
+  font-family: 'Cairo', sans-serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  flex: 0 0 250px;
+  color: #006400;
+  font-size: 1em;
+  direction: rtl;
 }
 
-  
-
+.info-wrapper {
+  display: flex;
+  gap: 0.2rem; /* espace entre les deux */
+  justify-content: center; /* pour centrer horizontalement */
+  align-items: flex-start; /* pour aligner en haut */
+  margin-top: 2rem;
+  flex-wrap: wrap; /* si écran petit, passe en colonne */
+}
