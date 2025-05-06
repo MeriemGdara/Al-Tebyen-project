@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { QuizService } from '../quiz.service';
 
 @Component({
@@ -6,8 +6,8 @@ import { QuizService } from '../quiz.service';
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css']
 })
-export class QuizComponent implements OnInit {
-  classes: string[] = ['الطهارة', 'السيرة النبوية', 'القرآن الكريم']; // ajoute ici les classes que tu as dans ton JSON
+export class QuizComponent implements OnInit, OnDestroy {
+  classes: string[] = ['الطهارة', 'السيرة النبوية', 'القرآن','الصلاة','الزكاة'];
   selectedClass: string = '';
   questions: any[] = [];
   currentIndex: number = 0;
@@ -15,6 +15,10 @@ export class QuizComponent implements OnInit {
   score: number = 0;
   quizStarted: boolean = false;
   quizFinished: boolean = false;
+
+  minutes: number = 0;
+  seconds: number = 0;
+  timer: any;
 
   constructor(private quizService: QuizService) {}
 
@@ -28,7 +32,25 @@ export class QuizComponent implements OnInit {
       this.quizFinished = false;
       this.quizStarted = true;
       this.currentQuestion = this.questions[this.currentIndex];
+      this.startTimer(5); // Par exemple, 5 minutes
     });
+  }
+
+  startTimer(durationInMinutes: number) {
+    this.minutes = durationInMinutes;
+    this.seconds = 0;
+    this.timer = setInterval(() => {
+      if (this.seconds === 0) {
+        if (this.minutes === 0) {
+          this.endQuiz();
+        } else {
+          this.minutes--;
+          this.seconds = 59;
+        }
+      } else {
+        this.seconds--;
+      }
+    }, 1000);
   }
 
   checkAnswer(selectedOption: string) {
@@ -41,8 +63,17 @@ export class QuizComponent implements OnInit {
     if (this.currentIndex < this.questions.length) {
       this.currentQuestion = this.questions[this.currentIndex];
     } else {
-      this.quizFinished = true;
-      this.quizStarted = false;
+      this.endQuiz();
     }
+  }
+
+  endQuiz() {
+    this.quizFinished = true;
+    this.quizStarted = false;
+    clearInterval(this.timer);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer);
   }
 }
