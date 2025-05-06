@@ -9,7 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { ZakatComponent } from './zakat/zakat.component';
-import { FormsModule } from '@angular/forms';  // Ajoute cette ligne
+import { FormsModule } from '@angular/forms';
+import { QuizComponent } from './quiz/quiz.component';  // Ajoute cette ligne
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';  // Ajoute cette ligne
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    ZakatComponent
+    ZakatComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,

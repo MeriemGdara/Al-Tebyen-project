@@ -1,0 +1,20 @@
+<div *ngIf="questions.length > 0" class="p-4 text-right bg-white rounded shadow w-full max-w-xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4 text-right">اختبارات</h2>
+  
+    <div *ngIf="!quizFinished">
+      <p class="mb-4 font-medium">{{ currentQuestion.question }}</p>
+      <ul>
+        <li *ngFor="let option of currentQuestion.options">
+          <button (click)="checkAnswer(option)" class="block w-full mb-2 p-2 border rounded text-right">
+            {{ option }}
+          </button>
+        </li>
+      </ul>
+    </div>
+  
+    <div *ngIf="quizFinished" class="text-green-700 font-bold">
+      <p>لقد أكملت الاختبار!</p>
+      <p>النتيجة: {{ score }} / {{ questions.length }}</p>
+    </div>
+  </div>
+  

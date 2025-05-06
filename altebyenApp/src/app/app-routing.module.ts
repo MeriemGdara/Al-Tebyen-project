@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { QuizComponent } from './quiz/quiz.component';
 import { SignupComponent } from './signup/signup.component';
 import { ZakatComponent } from './zakat/zakat.component';
 
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'zakat', component: ZakatComponent},
   { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: 'quiz', component: QuizComponent},
 ];
 
 
