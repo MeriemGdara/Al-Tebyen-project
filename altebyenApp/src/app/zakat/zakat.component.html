@@ -1,0 +1,189 @@
+<div class="cards-container">
+  <div class="card" (click)="showContent('content1')">
+    <i class="fas fa-hand-holding-heart icon"></i>
+    <h3>ماهي الزكاة؟</h3>
+  </div>
+  <div class="card" (click)="showContent('content2')">
+    <i class="fas fa-user icon"></i>
+    <h3>من تجب عليه الزكاة؟</h3>
+  </div>
+  <div class="card" (click)="showContent('content3')">
+    <i class="fas fa-balance-scale icon"></i>
+    <h3>ماهو النصاب؟</h3>
+  </div>
+  <div class="card" (click)="showContent('content4')">
+    <i class="fas fa-seedling icon"></i>
+    <h3>فوائد الزكاة</h3>
+  </div>
+  <div class="card" (click)="showContent('content5')">
+    <i class="fas fa-hands-helping icon"></i>
+    <h3>من يستحق الزكاة؟</h3>
+  </div>
+  <div class="card" (click)="showContent('content6')">
+    <i class="fas fa-calculator icon"></i>
+    <h3>كيفية حساب الزكاة</h3>
+  </div>
+</div>
+<div class="info-wrapper">
+<!-- Bulle -->
+<div *ngIf="selectedContent" class="bubble">
+  <ng-container [ngSwitch]="selectedContent">
+
+    <!-- content1 -->
+    <div *ngSwitchCase="'content1'">
+      <blockquote class="ayat">
+        قال الله تعالى: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ" (البقرة: 43)
+      </blockquote>
+      <div class="icon-title">
+        <i class="fas fa-hand-holding-heart icon-large"></i>
+        <p>
+          الزكاة هي أحد أركان الإسلام الخمسة، وهي عبادة مالية تُفرض على المسلمين القادرين وتُؤخذ من أموال الأغنياء لتُعطى للفقراء والمحتاجين. تهدف الزكاة إلى تطهير المال وتزكية النفس، وتحقيق التكافل الاجتماعي.
+        </p>
+      </div>
+    </div>
+
+    <!-- content2 -->
+    <div *ngSwitchCase="'content2'">
+      <blockquote class="ayat">
+        قال رسول الله ﷺ: "بني الإسلام على خمس... وإيتاء الزكاة..." (متفق عليه)
+      </blockquote>
+      <div class="icon-title">
+        <i class="fas fa-user icon-large"></i>
+        <p>
+          تجب الزكاة على كل مسلم حر، عاقل، بالغ، يملك نصابًا ويمر عليه حولٌ. لا تجب على المال المستخدم لقضاء الحاجات الأساسية.
+        </p>
+      </div>
+    </div>
+
+    <!-- content3 -->
+    <div *ngSwitchCase="'content3'">
+      <blockquote class="ayat">
+        قال رسول الله ﷺ: "ليس فيما دون خمسة أوسق صدقة" (رواه البخاري)
+      </blockquote>
+      <div class="icon-title">
+        <i class="fas fa-balance-scale icon-large"></i>
+        <p>
+          النصاب هو الحد الأدنى من المال الذي يجب أن يبلغه المسلم ليخرج الزكاة.
+        </p>
+      </div>
+      <div class="horizontal-list">
+        <div class="item">
+          <i class="fas fa-coins"></i>
+          <span>الذهب: 85 غرامًا</span>
+        </div>
+        <div class="item">
+          <i class="fas fa-coins"></i>
+          <span>الفضة: 595 غرامًا</span>
+        </div>
+        <div class="item">
+          <i class="fas fa-money-bill-wave"></i>
+          <span>النقود: ما يعادل أحد النصابين</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- content4 -->
+    <div *ngSwitchCase="'content4'">
+      <blockquote class="ayat">
+        قال الله تعالى: "خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِمْ بِهَا" (التوبة: 103)
+      </blockquote>
+      <div class="icon-title">
+        <i class="fas fa-seedling icon-large"></i>
+        <p>الزكاة لها فوائد عديدة للمجتمع والفرد:</p>
+      </div>
+      <div class="horizontal-list">
+        <div class="item">
+          <i class="fas fa-heart"></i>
+          <span>تطهير النفس والمال</span>
+        </div>
+        <div class="item">
+          <i class="fas fa-scale-balanced"></i>
+          <span>تحقيق العدالة الاجتماعية</span>
+        </div>
+        <div class="item">
+          <i class="fas fa-chart-line"></i>
+          <span>تنمية الاقتصاد</span>
+        </div>
+        <div class="item">
+          <i class="fas fa-people-arrows"></i>
+          <span>تقوية الروابط بين الناس</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- content5 -->
+    <div *ngSwitchCase="'content5'">
+      <blockquote class="ayat">
+        قال الله تعالى: "إِنَّمَا الصَّدَقَاتُ لِلْفُقَرَاءِ وَالْمَسَاكِينِ..." (التوبة: 60)
+      </blockquote>
+      <div class="icon-title">
+        <i class="fas fa-hands-helping icon-large"></i>
+        <p>الأصناف المستحقة للزكاة:</p>
+      </div>
+      <div class="horizontal-list">
+        <div class="item"><i class="fas fa-user-minus"></i><span>الفقراء</span></div>
+        <div class="item"><i class="fas fa-user-injured"></i><span>المساكين</span></div>
+        <div class="item"><i class="fas fa-user-cog"></i><span>العاملون عليها</span></div>
+        <div class="item"><i class="fas fa-heart"></i><span>المؤلفة قلوبهم</span></div>
+        <div class="item"><i class="fas fa-unlock-alt"></i><span>في الرقاب</span></div>
+        <div class="item"><i class="fas fa-hand-holding-usd"></i><span>الغارمون</span></div>
+        <div class="item"><i class="fas fa-mosque"></i><span>في سبيل الله</span></div>
+        <div class="item"><i class="fas fa-road"></i><span>ابن السبيل</span></div>
+      </div>
+    </div>
+
+    <!-- content6 -->
+    <div *ngSwitchCase="'content6'">
+      <blockquote class="ayat">
+        قال الله تعالى: "وَأَقِيمُوا الزَّكَاةَ" (البقرة: 110)
+      </blockquote>
+      <div class="icon-title">
+        <i class="fas fa-calculator icon-large"></i>
+        <p>خطوات حساب الزكاة:</p>
+      </div>
+      <div class="horizontal-list">
+        <div class="item"><i class="fas fa-list-alt"></i><span>تحديد نوع المال</span></div>
+        <div class="item"><i class="fas fa-check-circle"></i><span>بلوغ النصاب</span></div>
+        <div class="item"><i class="fas fa-calendar-alt"></i><span>مرور عام هجري</span></div>
+        <div class="item"><i class="fas fa-percentage"></i><span>إخراج 2.5%</span></div>
+      </div>
+      <div class="zakat-form">
+        <h3>حاسبة الزكاة</h3>
+        <form (ngSubmit)="calculerZakat()">
+          <label for="montant">المبلغ الذي تملكه (بالدينار):</label>
+          <input type="number" id="montant" [(ngModel)]="montant" name="montant" required>
+
+          <label for="type">نوع المال:</label>
+          <select id="type" [(ngModel)]="type" name="type" required>
+            <option value="argent">مال نقدي</option>
+            <option value="bazar">بضائع تجارية</option>
+            <option value="agriculture">محاصيل زراعية</option>
+          </select>
+
+          <button type="submit">احسب الزكاة</button>
+        </form>
+        <div *ngIf="zakatResult !== null">
+          <h4>نتيجة الزكاة:</h4>
+          <p>الزكاة المستحقة: {{ zakatResult }} دينار</p>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>  
+</div>
+
+
+<div class="daily-info">
+  <h4><i class="fas fa-lightbulb"></i> معلومة اليوم</h4>
+  <p>
+    <i class="fas fa-question-circle"></i>  هل تعلم أن الزكاة والصدقة هما وجهان لعملة واحدة في الإسلام، ولكن يختلفان في جوانب عدة؟<br><br>
+    <strong>الزكاة  :</strong> هي فريضة مالية تُفرض على المسلمين الذين يمتلكون النصاب، وهي تُخرج بنسبة 2.5% من أموالهم سنويًا بهدف مساعدة الفقراء وتحقيق العدالة الاجتماعية.<br><br>
+    <strong>الصدقة:</strong> هي تطوع وصدقة تطوعية يمكن أن تكون بأي مبلغ وفي أي وقت، وتساعد في تقوية الروابط الإنسانية والتكافل.<br>
+  </p>
+</div>
+
+
+
+
+</div>
+

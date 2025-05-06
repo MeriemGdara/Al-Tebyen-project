@@ -8,19 +8,24 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
+import { ZakatComponent } from './zakat/zakat.component';
+import { FormsModule } from '@angular/forms';  // Ajoute cette ligne
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    ZakatComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

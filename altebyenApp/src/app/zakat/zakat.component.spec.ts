@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ZakatComponent } from './zakat.component';
+
+describe('ZakatComponent', () => {
+  let component: ZakatComponent;
+  let fixture: ComponentFixture<ZakatComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ZakatComponent]
+    });
+    fixture = TestBed.createComponent(ZakatComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

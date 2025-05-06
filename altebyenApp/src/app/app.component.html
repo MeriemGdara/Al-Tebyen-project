@@ -1,3 +1,21 @@
+<nav class="navbar">
+    <div class="navbar-left">
+      <img src="assets/logo.jpg" alt="Logo" class="logo" width="60" height="80"/>
+      <span class="brand">الفرع المحلي التّبيـان</span>
+    </div>
+    <ul class="nav-list">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">الصفحة الرئيسية</a></li>
+      <li><a routerLink="/zakat" routerLinkActive="active">زكاة</a></li>
+      <li><a routerLink="/facts" routerLinkActive="active">هل تعلم</a></li>
+      <li><a routerLink="/tests" routerLinkActive="active">اختبارات</a></li>
+    </ul>
+    <!-- Person Icon and Dropdown -->
+    <div class="user-dropdown">
+      <i class="fas fa-user" onclick="toggleDropdown()" style="font-size: 24px; cursor: pointer;"></i>
+      <div id="dropdown-menu" class="dropdown-menu">
+        <a href="/Login">تسجيل الدخول</a>
+        <a href="/signup">إنشاء حساب</a>
+      </div>
+    </div>
+  </nav>
 <router-outlet></router-outlet>
-<h1>welcome to home page!</h1>
-

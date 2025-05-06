@@ -1,0 +1,141 @@
+/* Navbar container */
+.navbar {
+    background-color: #ffffff;
+    color: rgb(0, 77, 0); /* Slightly darker green for better contrast */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* More subtle shadow */
+    font-family: 'Cairo';
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    direction: rtl; /* Maintain RTL direction */
+  }
+
+  /* Logo and brand section */
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    order: 3; /* Positions to the left in RTL layout */
+    margin-right: auto; /* Pushes to the far left */
+  }
+
+  .logo {
+    height: 45px; /* Slightly larger logo */
+    margin-left: 15px;
+    transition: transform 0.3s ease;
+  }
+
+  .logo:hover {
+    transform: scale(1.05); /* Subtle hover effect */
+  }
+
+  .brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #004d00;
+    letter-spacing: -0.5px;
+  }
+
+  /* Navigation links */
+  .nav-list {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem; /* Modern gap property */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Perfect centering */
+  }
+
+  .nav-list li a {
+    text-decoration: none;
+    color: #004d00;
+    padding: 0.75rem 1.25rem;
+    transition: all 0.2s ease-in-out;
+    font-weight: 600;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: 'Cairo';
+  }
+
+  .nav-list li a:hover,
+  .nav-list li a.active {
+    color: #ffffff;
+    background-color: #006400;
+    box-shadow: 0 3px 12px rgba(0, 100, 0, 0.2);
+  }
+
+  /* User dropdown */
+  .user-dropdown {
+    position: relative;
+    order: 1; /* Positions to the right in RTL layout */
+    margin-left: 1rem;
+  }
+
+  .user-dropdown i {
+    font-size: 26px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .user-dropdown i:hover {
+    background-color: rgba(0, 100, 0, 0.1);
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    min-width: 180px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+  }
+
+  .dropdown-menu a {
+    color: #404040;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  .dropdown-menu a:hover {
+    background-color: #f8f8f8;
+    color: #006400;
+    padding-right: 1.75rem;
+  }
+
+  .user-dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .nav-list {
+      gap: 1rem;
+    }
+
+    .nav-list li a {
+      padding: 0.5rem 1rem;
+      font-size: 3rem;
+      font-family: 'Cairo';
+    }
+
+    .brand {
+      font-size: 1.2rem;
+    }
+  }
