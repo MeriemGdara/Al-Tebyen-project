@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,9 +30,9 @@ export class LoginComponent {
       this.showError = true;
       return;
     }
-
+  
     const { email, password } = this.loginForm.value;
-
+  
     this.authService.authenticate(email, password).pipe(
       catchError(error => {
         console.error('Erreur d\'authentification:', error);
@@ -41,6 +41,7 @@ export class LoginComponent {
       })
     ).subscribe(user => {
       if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user)); // Stocker l'utilisateur dans le localStorage
         this.showError = false;
         console.log('✅ Connexion réussie avec :', user.email);
         this.router.navigate(['/home']);
@@ -49,4 +50,5 @@ export class LoginComponent {
       }
     });
   }
+  
 }

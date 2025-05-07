@@ -7,7 +7,7 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit, OnDestroy {
-  classes: string[] = ['الطهارة', 'السيرة النبوية', 'القرآن','الصلاة','الزكاة'];
+  classes: string[] = ['الطهارة', 'السيرة النبوية', 'القرآن', 'الصلاة', 'الزكاة'];
   selectedClass: string = '';
   questions: any[] = [];
   currentIndex: number = 0;
@@ -20,23 +20,26 @@ export class QuizComponent implements OnInit, OnDestroy {
   seconds: number = 0;
   timer: any;
 
+  userAnswers: { question: string, selected: string, correct: string }[] = [];
+
   constructor(private quizService: QuizService) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  startQuiz() {
+  startQuiz(): void {
     this.quizService.getQuiz(this.selectedClass).subscribe(data => {
       this.questions = data;
       this.currentIndex = 0;
       this.score = 0;
+      this.userAnswers = [];
       this.quizFinished = false;
       this.quizStarted = true;
       this.currentQuestion = this.questions[this.currentIndex];
-      this.startTimer(5); // Par exemple, 5 minutes
+      this.startTimer(5); // durée en minutes
     });
   }
 
-  startTimer(durationInMinutes: number) {
+  startTimer(durationInMinutes: number): void {
     this.minutes = durationInMinutes;
     this.seconds = 0;
     this.timer = setInterval(() => {
@@ -53,8 +56,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  checkAnswer(selectedOption: string) {
-    if (selectedOption === this.currentQuestion.answer) {
+  checkAnswer(option: string): void {
+    this.userAnswers.push({
+      question: this.currentQuestion.question,
+      selected: option,
+      correct: this.currentQuestion.answer
+    });
+
+    if (option === this.currentQuestion.answer) {
       this.score++;
     }
 
@@ -67,13 +76,13 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
   }
 
-  endQuiz() {
+  endQuiz(): void {
     this.quizFinished = true;
     this.quizStarted = false;
     clearInterval(this.timer);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     clearInterval(this.timer);
   }
 }

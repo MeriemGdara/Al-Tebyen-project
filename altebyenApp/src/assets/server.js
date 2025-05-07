@@ -91,36 +91,49 @@ app.post('/signup', (req, res) => {
 });
 
 // ✅ Nouvelle route pour enregistrer un message de contact
-fs.readFile('contactMessages.json', (err, data) => {
-  if (err) {
-    console.error('Erreur lors de la lecture du fichier contactMessages.json:', err);
-    // Créer un fichier vide si il n'existe pas
-    fs.writeFile('contactMessages.json', JSON.stringify([]), (writeError) => {
-      if (writeError) {
-        return res.status(500).send('Erreur lors de la création du fichier contactMessages.json.');
-      }
-      console.log('Fichier créé');
-    });
-    return res.status(500).send('Erreur de lecture du fichier.');
+app.post('/contact', (req, res) => {
+  const { name, email, message } = req.body; // Extraction correcte des données
+
+  if (!name || !email || !message) {
+    return res.status(400).send('Tous les champs sont requis.');
   }
 
-  let messages;
-  try {
-    messages = JSON.parse(data);
-  } catch (parseError) {
-    console.error('Erreur de parsing JSON :', parseError);
-    return res.status(500).send('Fichier JSON invalide.');
-  }
-
-  // Ajouter le message et sauvegarder
-  const newMessage = { name, email, message, timestamp: new Date() };
-  messages.push(newMessage);
-
-  fs.writeFile('contactMessages.json', JSON.stringify(messages, null, 2), (err) => {
+  fs.readFile('contactMessages.json', (err, data) => {
     if (err) {
-      console.error('Erreur lors de l\'écriture dans le fichier contactMessages.json:', err);
-      return res.status(500).send('Erreur d\'écriture dans le fichier.');
+      console.error('Erreur lors de la lecture du fichier contactMessages.json:', err);
+      // Créer un fichier vide si il n'existe pas
+      fs.writeFile('contactMessages.json', JSON.stringify([]), (writeError) => {
+        if (writeError) {
+          return res.status(500).send('Erreur lors de la création du fichier contactMessages.json.');
+        }
+        console.log('Fichier créé');
+      });
+      return res.status(500).send('Erreur de lecture du fichier.');
     }
-    res.status(201).json({ message: 'Message enregistré avec succès.' });
+
+    let messages;
+    try {
+      messages = JSON.parse(data);
+    } catch (parseError) {
+      console.error('Erreur de parsing JSON :', parseError);
+      return res.status(500).send('Fichier JSON invalide.');
+    }
+
+    // Ajouter le message et sauvegarder
+    const newMessage = { name, email, message, timestamp: new Date() };
+    messages.push(newMessage);
+
+    fs.writeFile('contactMessages.json', JSON.stringify(messages, null, 2), (err) => {
+      if (err) {
+        console.error('Erreur lors de l\'écriture dans le fichier contactMessages.json:', err);
+        return res.status(500).send('Erreur d\'écriture dans le fichier.');
+      }
+      res.status(201).json({ message: 'Message enregistré avec succès.' });
+    });
   });
+});
+
+// Démarrer le serveur
+app.listen(port, () => {
+  console.log(`Serveur démarré sur http://localhost:${port}`);
 });

@@ -1,17 +1,17 @@
 <div class="page-container">
     <div class="video-container">
-      <video src="assets/video.mp4" autoplay muted loop></video>
+      <video src="assets/vidéos/quiz.mp4" autoplay muted loop></video>
     </div>
   
     <div class="quiz-wrapper">
-      <h1 class="quiz-title">قال الله تعالى :"اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ"</h1>
+      <h1 class="quiz-title"> 🖍️قال الله تعالى :"اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ " </h1>
   
       <div class="quiz-container" *ngIf="!quizStarted && !quizFinished">
-        <h2>اختر القسم للبدء</h2>
+        <h2>اختر موضوع اختبارك</h2>
         <select [(ngModel)]="selectedClass">
           <option *ngFor="let cls of classes" [value]="cls">{{ cls }}</option>
         </select>
-        <button (click)="startQuiz()" [disabled]="!selectedClass">ابدأ الاختبار</button>
+        <button (click)="startQuiz()" [disabled]="!selectedClass"><i class="fas fa-play" ></i> ابدأ الاختبار  </button>
       </div>
   
       <div class="quiz-container" *ngIf="quizStarted && !quizFinished">
@@ -31,6 +31,28 @@
       <div class="quiz-container" *ngIf="quizFinished">
         <h2>انتهى الاختبار!</h2>
         <p>نتيجتك: {{ score }} / {{ questions.length }}</p>
+        <div *ngIf="score >= questions.length * 0.8" class="result-message success">
+          ممتاز! 🌟 أنت رائع!
+        </div>
+        <div *ngIf="score >= questions.length * 0.5 && score < questions.length * 0.8" class="result-message average">
+          جيد! تابع الاجتهاد ✨
+        </div>
+        <div *ngIf="score < questions.length * 0.5" class="result-message fail">
+          لا بأس! حاول مرة أخرى 💪
+        </div>
+      
+        <div class="answers-review">
+          <h3><i class="fas fa-list"></i> مراجعة إجاباتك :</h3>
+          <ul>
+            <li *ngFor="let item of userAnswers">
+              <strong>السؤال:</strong> {{ item.question }}<br>
+              <span [ngClass]="{ correct: item.selected === item.correct, incorrect: item.selected !== item.correct }">
+                <strong class="answer" >إجابتك:</strong> {{ item.selected }}
+              </span><br>
+              <strong>الصحيح:</strong> {{ item.correct }}
+            </li>
+          </ul>
+        </div>
         <button (click)="quizFinished = false; selectedClass='';">اختبار جديد</button>
       </div>
   
