@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators'; // Assure-toi d'importer `map`
 import { User } from '../models/user.model';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  // Authentifier l'utilisateur
   authenticate(email: string, password: string): Observable<User | null> {
-    return this.http.post<User | null>(this.loginUrl, { email, password }).pipe(
+    return this.http.post<User[]>(this.loginUrl, { email, password }).pipe(
+      map(users => {
+        if (users.length > 0) {
+          const user = users[0];
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          return user;
+        } else {
+          return null;
+        }
+      }),
       catchError(error => {
         console.error('Erreur lors de l\'authentification:', error);
         return throwError(() => new Error('Échec de l\'authentification'));
@@ -42,6 +52,25 @@ export class AuthService {
   }
 
   logout(): void {
+    // Supprime l'utilisateur connecté du localStorage
+    localStorage.removeItem('currentUser');
     console.log('Utilisateur déconnecté.');
+  }
+
+  // Récupérer l'utilisateur connecté
+  getCurrentUser(): User | null {
+    return JSON.parse(localStorage.getItem('currentUser') || 'null');
+  }
+
+  // Vérifier si l'utilisateur est connecté
+  isLoggedIn(): boolean {
+    return !!this.getCurrentUser();
+  }
+
+  // Vérifier si l'utilisateur est connecté
+  isAuthenticated(): boolean {
+    // Par exemple, vérifiez la présence d'un token dans le localStorage
+    const userToken = localStorage.getItem('userToken'); // ou tout autre méthode que vous utilisez pour l'authentification
+    return !!userToken; // Retourne vrai si un token existe
   }
 }

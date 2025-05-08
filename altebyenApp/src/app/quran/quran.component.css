@@ -1,0 +1,211 @@
+.content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: 100vh;
+  background: #f8f6f1;
+}
+
+/* Liste des sourates */
+.surah-list {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.surah-item {
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #f8f6f1 50%, #e3e0d7);
+  border: 1px solid #e0e0e0;
+}
+
+.surah-item:hover {
+  transform: translateX(10px);
+  background: #f0ede5;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+
+.surah-item::before {
+  content: attr(data-number);
+  background: #2c5f2d;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.revelation-badge {
+  background: #2c5f2d;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* Vue principale */
+.quran-viewer {
+  background: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.surah-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 1.5rem;
+}
+
+.surah-header h2 {
+  color: #2c5f2d;
+  font-size: 2.2rem;
+  margin: 0;
+  font-family: 'Amiri Quran', serif;
+}
+
+.revelation-type {
+  color: #8e8e8e;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Navigation */
+.ayah-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.ayah-navigation button {
+  background: #2c5f2d;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  color: white;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ayah-navigation button:disabled {
+  background: #b8b8b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.ayah-navigation button:hover:not(:disabled) {
+  background: #1e401f;
+  transform: scale(1.05);
+}
+
+.ayah-navigation span {
+  font-size: 1.3rem;
+  color: #444;
+  font-weight: 500;
+}
+
+/* Texte arabe */
+.arabic-text {
+  font-size: 2.5rem;
+  line-height: 4rem;
+  text-align: right;
+  color: #333;
+  margin: 2rem 0;
+  font-family: 'Amiri Quran', serif;
+  border-radius: 10px;
+  padding: 2rem;
+  background: #f8f6f1;
+  position: relative;
+}
+
+.current-ayah::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 80%;
+  background: #2c5f2d;
+  border-radius: 5px;
+}
+
+/* Lecteur audio */
+.audio-player {
+  margin-top: 3rem;
+  background: #f8f6f1;
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+audio {
+  width: 100%;
+  border-radius: 50px;
+}
+
+/* Custom controls */
+audio::-webkit-media-controls-panel {
+  background: #2c5f2d;
+  border-radius: 50px;
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: white;
+  border-radius: 50%;
+}
+
+audio::-webkit-media-controls-timeline {
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .surah-list {
+    max-height: 300px;
+  }
+
+  .arabic-text {
+    font-size: 1.8rem;
+    line-height: 3rem;
+    padding: 1rem;
+  }
+
+  .ayah-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

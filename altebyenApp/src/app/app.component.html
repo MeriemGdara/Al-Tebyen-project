@@ -1,21 +1,30 @@
 <nav class="navbar">
-    <div class="navbar-left">
-      <img src="assets/logo.jpg" alt="Logo" class="logo" width="60" height="80"/>
-      <span class="brand">الفرع المحلي التّبيـان</span>
+  <div class="navbar-left">
+    <img src="assets/logo.jpg" alt="Logo" class="logo" width="60" height="80" />
+    <span class="brand">الفرع المحلي التّبيـان</span>
+  </div>
+  <ul class="nav-list">
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">الصفحة الرئيسية</a></li>
+    <li><a routerLink="/zakat" routerLinkActive="active">زكاة</a></li>
+    <li><a routerLink="/quran" routerLinkActive="active">قرآن</a></li>
+    <li><a routerLink="/facts" routerLinkActive="active">هل تعلم</a></li>
+    <li><a routerLink="/quiz" routerLinkActive="active">اختبارات</a></li>
+  </ul>
+
+  <!-- Menu déroulant pour l'utilisateur -->
+  <div class="user-dropdown">
+    <i class="fas fa-user" style="font-size: 24px; cursor: pointer;"></i>
+    <div id="dropdown-menu" class="dropdown-menu">
+      <ng-container *ngIf="isAuthenticated">
+        <p><span class="online-status"></span> {{ userName }}</p> <!-- Afficher le nom de l'utilisateur avec le point vert -->
+        <a href="#" (click)="logout()">تسجيل الخروج</a>
+      </ng-container>
+      <ng-container >
+        <a routerLink="/Login">تسجيل الدخول</a>
+        <a routerLink="/signup">إنشاء حساب</a>
+      </ng-container>
     </div>
-    <ul class="nav-list">
-      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">الصفحة الرئيسية</a></li>
-      <li><a routerLink="/zakat" routerLinkActive="active">زكاة</a></li>
-      <li><a routerLink="/facts" routerLinkActive="active">هل تعلم</a></li>
-      <li><a routerLink="/quiz" routerLinkActive="active">اختبارات</a></li>
-    </ul>
-    <!-- Person Icon and Dropdown -->
-    <div class="user-dropdown">
-      <i class="fas fa-user" onclick="toggleDropdown()" style="font-size: 24px; cursor: pointer;"></i>
-      <div id="dropdown-menu" class="dropdown-menu">
-        <a href="/Login">تسجيل الدخول</a>
-        <a href="/signup">إنشاء حساب</a>
-      </div>
-    </div>
-  </nav>
+  </div>
+</nav>
+
 <router-outlet></router-outlet>

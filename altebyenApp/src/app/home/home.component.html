@@ -27,8 +27,11 @@
         </div>
         <div class="form-group">
           <label for="email">البريد الالكتروني</label>
-          <input type="email" id="email" class="form-control" required [(ngModel)]="contact.email" name="email" #email="ngModel">
-          <div *ngIf="email.invalid && email.touched" class="error">يجب عليك ادخال البريد الالكتروني</div>
+  <input type="email" id="email" class="form-control" required email [(ngModel)]="contact.email" name="email" #email="ngModel">
+  <div *ngIf="email.invalid && email.touched" class="error">
+    <div *ngIf="email.errors?.['required']">يجب عليك ادخال البريد الالكتروني</div>
+    <div *ngIf="email.errors?.['email']">صيغة البريد الإلكتروني غير صحيحة</div>
+  </div>
         </div>
 
         <div class="form-group">
@@ -71,4 +74,4 @@
         <p>{{ ayah }}</p>
       </div>
     </div>
-</div>
+  </div>

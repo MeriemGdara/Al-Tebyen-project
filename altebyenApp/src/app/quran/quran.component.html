@@ -1,0 +1,72 @@
+<div class="content">
+  <!-- Liste des sourates -->
+  <div class="surah-list">
+    <div *ngFor="let surah of surahs"
+         class="surah-item"
+         (click)="loadSurah(surah.number)"
+         [attr.data-number]="surah.number">
+      <div class="surah-info">
+        <span class="surah-number">{{ surah.number }}.</span>
+        <div class="surah-names">
+          <span class="arabic-name">{{ surah.name }}</span>
+        </div>
+      </div>
+      <span class="revelation-badge">{{ surah.revelationType | uppercase }}</span>
+    </div>
+  </div>
+
+  <!-- Vue d'une sourate -->
+  <div class="quran-viewer" *ngIf="currentSurah">
+    <div class="surah-header">
+      <div class="surah-title">
+        <h2>
+          <span class="surah-number">{{ currentSurah.number }}.</span>
+          <span class="arabic-title">{{ currentSurah.name }}</span>
+        </h2>
+        <p class="revelation-type">
+          <i class="fas fa-info-circle"></i>
+          {{ currentSurah.revelationType }} - {{ currentSurah.ayahs.length }} Versets
+        </p>
+      </div>
+    </div>
+
+    <!-- Navigation entre les versets -->
+    <div class="ayah-navigation">
+      <button (click)="previousAyah()" [disabled]="currentAyah?.numberInSurah === 1" class="nav-button">
+        <i class="fas fa-chevron-left"></i>
+        السابق
+      </button>
+
+      <div class="ayah-counter">
+        <span class="current-ayah">الآية {{ currentAyah?.numberInSurah }}</span>
+        <span class="total-ayah">/ {{ currentSurah.ayahs.length }}</span>
+      </div>
+
+      <button (click)="nextAyah()"
+              [disabled]="currentAyah?.numberInSurah === currentSurah.ayahs.length"
+              class="nav-button">
+        التالي
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- Contenu du verset -->
+    <div class="ayah-content">
+      <p class="arabic-text" [class.current-ayah]="currentAyah">
+        {{ currentAyah?.text }}
+        <span class="ayah-number">{{ currentAyah?.numberInSurah }}</span>
+      </p>
+
+      <!-- Audio du verset -->
+      <div class="audio-player" *ngIf="audioUrl">
+        <audio #audioPlayer controls>
+          <source [src]="audioUrl" type="audio/mpeg">
+          <div class="audio-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            المتصفح لا يدعم تشغيل الصوتيات
+          </div>
+        </audio>
+      </div>
+    </div>
+  </div>
+</div>

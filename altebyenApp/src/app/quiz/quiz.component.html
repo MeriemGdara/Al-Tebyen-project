@@ -1,20 +1,64 @@
-<div *ngIf="questions.length > 0" class="p-4 text-right bg-white rounded shadow w-full max-w-xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4 text-right">اختبارات</h2>
-  
-    <div *ngIf="!quizFinished">
-      <p class="mb-4 font-medium">{{ currentQuestion.question }}</p>
-      <ul>
-        <li *ngFor="let option of currentQuestion.options">
-          <button (click)="checkAnswer(option)" class="block w-full mb-2 p-2 border rounded text-right">
-            {{ option }}
-          </button>
-        </li>
-      </ul>
+<div class="page-container">
+    <div class="video-container">
+      <video src="assets/vidéos/quiz.mp4" autoplay muted loop></video>
     </div>
   
-    <div *ngIf="quizFinished" class="text-green-700 font-bold">
-      <p>لقد أكملت الاختبار!</p>
-      <p>النتيجة: {{ score }} / {{ questions.length }}</p>
+    <div class="quiz-wrapper">
+      <h1 class="quiz-title"> 🖍️قال الله تعالى :"اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ " </h1>
+  
+      <div class="quiz-container" *ngIf="!quizStarted && !quizFinished">
+        <h2>اختر موضوع اختبارك</h2>
+        <select [(ngModel)]="selectedClass">
+          <option *ngFor="let cls of classes" [value]="cls">{{ cls }}</option>
+        </select>
+        <button (click)="startQuiz()" [disabled]="!selectedClass"><i class="fas fa-play" ></i> ابدأ الاختبار  </button>
+      </div>
+  
+      <div class="quiz-container" *ngIf="quizStarted && !quizFinished">
+        <h3>السؤال {{ currentIndex + 1 }} من {{ questions.length }}</h3>
+        <div class="timer">⏳ الوقت المتبقي: {{ minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</div>
+        <p>{{ currentQuestion.question }}</p>
+        <div class="options">
+          <button *ngFor="let option of currentQuestion.options" (click)="checkAnswer(option)">
+            {{ option }}
+          </button>
+        </div>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="((currentIndex + 1) / questions.length) * 100"></div>
+        </div>
+      </div>
+  
+      <div class="quiz-container" *ngIf="quizFinished">
+        <h2>انتهى الاختبار!</h2>
+        <p>نتيجتك: {{ score }} / {{ questions.length }}</p>
+        <div *ngIf="score >= questions.length * 0.8" class="result-message success">
+          ممتاز! 🌟 أنت رائع!
+        </div>
+        <div *ngIf="score >= questions.length * 0.5 && score < questions.length * 0.8" class="result-message average">
+          جيد! تابع الاجتهاد ✨
+        </div>
+        <div *ngIf="score < questions.length * 0.5" class="result-message fail">
+          لا بأس! حاول مرة أخرى 💪
+        </div>
+      
+        <div class="answers-review">
+          <h3><i class="fas fa-list"></i> مراجعة إجاباتك :</h3>
+          <ul>
+            <li *ngFor="let item of userAnswers">
+              <strong>السؤال:</strong> {{ item.question }}<br>
+              <span [ngClass]="{ correct: item.selected === item.correct, incorrect: item.selected !== item.correct }">
+                <strong class="answer" >إجابتك:</strong> {{ item.selected }}
+              </span><br>
+              <strong>الصحيح:</strong> {{ item.correct }}
+            </li>
+          </ul>
+        </div>
+        <button (click)="quizFinished = false; selectedClass='';">اختبار جديد</button>
+      </div>
+  
+      <div class="quote">
+        <p>"اطلبوا العلم من المهد إلى اللحد"</p>
+      </div>
     </div>
   </div>
   

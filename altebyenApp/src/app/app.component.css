@@ -138,4 +138,13 @@
     .brand {
       font-size: 1.2rem;
     }
+    .online-status {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(0, 128, 0); /* Point vert */
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
   }

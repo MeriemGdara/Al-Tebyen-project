@@ -86,8 +86,8 @@ app.post('/signup', (req, res) => {
     });
   });
 });
-
 // ✅ Route pour enregistrer un message de contact
+// ✅ Route pour enregistrer un message de contact (VERSION CORRIGÉE)
 app.post('/contact', (req, res) => {
   const { name, email, message } = req.body;
 
@@ -107,7 +107,12 @@ app.post('/contact', (req, res) => {
       }
     }
 
-    const newMessage = { name, email, message, timestamp: new Date().toISOString() };
+    const newMessage = {
+      name,
+      email,
+      message,
+      timestamp: new Date().toISOString()
+    };
     messages.push(newMessage);
 
     fs.writeFile(CONTACT_FILE, JSON.stringify(messages, null, 2), (err) => {
@@ -116,12 +121,12 @@ app.post('/contact', (req, res) => {
         return res.status(500).send("Erreur enregistrement message.");
       }
       console.log("✅ Nouveau message reçu :", newMessage);
-      res.status(201).json({ message: 'Message enregistré avec succès.' });
+      res.status(201).json({ message: "Message enregistré avec succès." }); // Ajout de la réponse
     });
   });
 });
 
-// ✅ Lancement du serveur
+// ✅ Lancement du serveur (CORRIGÉ)
 app.listen(port, () => {
-  console.log(`✅ Serveur démarré sur http://localhost:${port}`);
+  console.log(`✅ Serveur démarré sur http://localhost:${port}`); // Suppression du ')} excédentaire
 });

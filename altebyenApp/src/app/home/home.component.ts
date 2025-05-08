@@ -1,14 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
   hadith: string = '';
   dhikr: string = '';
   ayah: string = '';
+
+  contact = {
+    name: '',
+    email: '',
+    message: ''
+  };
 
   private ahadith: string[] = [
     'إنما الأعمال بالنيات',
@@ -49,6 +57,7 @@ export class HomeComponent {
     'وَقُل رَّبُّ أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ – المؤمنون: 97'
   ];
 
+  constructor(private http: HttpClient) {} // ✅ injection du service HTTP
 
   ngOnInit() {
     this.hadith = this.getRandomItem(this.ahadith);
@@ -59,24 +68,25 @@ export class HomeComponent {
   private getRandomItem(arr: string[]): string {
     return arr[Math.floor(Math.random() * arr.length)];
   }
-  contact = {
-    name: '',
-    email: '',
-    message: ''
-  };
 
   onSubmit() {
-    // Vérifie si le localStorage contient déjà des messages
+    if (!this.contact.name || !this.contact.email || !this.contact.message) {
+      alert('Veuillez remplir tous les champs.');
+      return;
+    }
+
+    // Sauvegarde locale (optionnelle si tu veux garder cette partie)
     let messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
-
-    // Ajoute le message actuel à la liste des messages
     messages.push(this.contact);
-
-    // Enregistre la liste mise à jour dans localStorage
     localStorage.setItem('contactMessages', JSON.stringify(messages));
 
-    // Réinitialise le formulaire
-    this.contact = { name: '', email: '', message: '' };
-    alert('Message envoyé avec succès!');
+    // Envoi vers serveur backend Node.js
+    this.http.post('http://localhost:3000/contact', this.contact).subscribe({
+      next: () => {
+        alert('Message envoyé et sauvegardé avec succès !');
+        this.contact = { name: '', email: '', message: '' }; // Réinitialisation
+      },
+      error: () => alert('Erreur lors de l\'envoi au serveur.')
+    });
   }
 }
