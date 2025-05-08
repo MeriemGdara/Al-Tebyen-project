@@ -5,17 +5,6 @@
       <source src="assets/demo.mp4" type="video/mp4">
       Votre navigateur ne supporte pas la balise vidéo.
     </video>
-
-<<<<<<< HEAD
-  <ul class="nav-list">
-    <li><a routerLink="/" routerLinkActive="active">الصفحة الرئيسية</a></li>
-    <li><a routerLink="/salat" routerLinkActive="active">صلاة</a></li>
-    <li><a routerLink="/quran" routerLinkActive="active">قرآن</a></li>
-    <li><a routerLink="/zakat" routerLinkActive="active">زكاة</a></li>
-    <li><a routerLink="/facts" routerLinkActive="active">هل تعلم</a></li>
-    <li><a routerLink="/tests" routerLinkActive="active">اختبارات</a></li>
-  </ul>
-=======
     <div class="association-description">
       <h2>تعريف الجمعية</h2>
       <p>
@@ -36,8 +25,6 @@
           <input type="text" id="name" class="form-control" required [(ngModel)]="contact.name" name="name" #name="ngModel">
           <div *ngIf="name.invalid && name.touched" class="error">يجب عليك ادخال الاسم واللقب</div>
         </div>
->>>>>>> f4948579ea0df53e9e36200e6dacba271dff4898
-
         <div class="form-group">
           <label for="email">البريد الالكتروني</label>
           <input type="email" id="email" class="form-control" required [(ngModel)]="contact.email" name="email" #email="ngModel">
@@ -84,8 +71,4 @@
         <p>{{ ayah }}</p>
       </div>
     </div>
-
-
-
-
 </div>
