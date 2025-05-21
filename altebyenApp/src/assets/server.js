@@ -1,93 +1,95 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const bodyParser = require('body-parser');
+const mysql = require('mysql2'); // tu as bien choisi mysql2, parfait
 const cors = require('cors');
+
 const app = express();
 const port = 3000;
 
 // ✅ Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json()); // Suffit, pas besoin de body-parser
 
-// 📁 Chemins absolus vers les fichiers JSON
-const USERS_FILE = path.join(__dirname, 'bd.json');
-const CONTACT_FILE = path.join(__dirname, 'contactMessages.json');
+// ✅ Connexion à MySQL
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'altebyen_db',
+  port: 3307
+});
 
-// ✅ Route pour vérifier si l'email existe
+db.connect(err => {
+  if (err) {
+    console.error('❌ Erreur de connexion MySQL:', err);
+  } else {
+    console.log('✅ Connecté à MySQL');
+  }
+});
+
+// ✅ Vérification email existant
 app.get('/emailExists', (req, res) => {
   const { email } = req.query;
-
-  fs.readFile(USERS_FILE, (err, data) => {
-    if (err) {
-      console.error('Erreur lecture fichier :', err);
-      return res.status(500).send('Erreur lecture fichier.');
-    }
-
-    let users;
-    try {
-      users = JSON.parse(data);
-    } catch (parseError) {
-      console.error('Erreur parsing JSON :', parseError);
-      return res.status(500).send('Fichier JSON invalide.');
-    }
-
-    const userExists = users.some(user => user.email === email);
-    res.json(userExists);
+  if (!email) return res.status(400).send('Email requis.');
+  db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+    if (err) return res.status(500).send('Erreur serveur.');
+    res.json(results.length > 0);
   });
 });
 
-// ✅ Route pour login
+// ✅ Login
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
-  fs.readFile(USERS_FILE, (err, data) => {
-    if (err) return res.status(500).send('Erreur lecture fichier.');
+  console.log('Tentative de connexion avec :', email, password); // 👈 AJOUTE ÇA
 
-    let users;
-    try {
-      users = JSON.parse(data);
-    } catch {
-      return res.status(500).send('Fichier JSON invalide.');
-    }
+  if (!email || !password) {
+    return res.status(400).send('Email et mot de passe requis.');
+  }
 
-    const user = users.find(u => u.email === email && u.password === password);
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(401).send('Identifiants invalides.');
+  db.query(
+    'SELECT id, username, email FROM users WHERE email = ? AND password = ?',
+    [email, password],
+    (err, results) => {
+      if (err) return res.status(500).send('Erreur serveur.');
+      if (results.length > 0) {
+        res.json(results[0]);
+      } else {
+        res.status(401).send('Identifiants invalides.');
+      }
     }
-  });
+  );
 });
 
-// ✅ Route pour signup
+// ✅ Signup
 app.post('/signup', (req, res) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  fs.readFile(USERS_FILE, (err, data) => {
-    if (err) return res.status(500).send('Erreur lecture fichier.');
+  if (!username || !email || !password) {
+    return res.status(400).send('Tous les champs sont requis.');
+  }
 
-    let users;
-    try {
-      users = JSON.parse(data);
-    } catch {
-      return res.status(500).send('Fichier JSON invalide.');
+  db.query(
+    'SELECT * FROM users WHERE email = ? OR username = ?',
+    [email, username],
+    (err, results) => {
+      if (err) return res.status(500).send('Erreur serveur.');
+      if (results.length > 0) {
+        return res.status(400).send('Email ou nom d’utilisateur déjà utilisé.');
+      }
+
+      db.query(
+        'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+        [username, email, password],
+        (err2) => {
+          if (err2) return res.status(500).send('Erreur enregistrement.');
+          res.status(201).json({ message: 'Utilisateur enregistré avec succès.' });
+        }
+      );
     }
-
-    if (users.some(u => u.email === email)) {
-      return res.status(400).send('Email déjà utilisé.');
-    }
-
-    users.push({ email, password });
-
-    fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2), err => {
-      if (err) return res.status(500).send('Erreur écriture fichier.');
-      res.status(201).json({ message: 'Utilisateur enregistré avec succès.' });
-    });
-  });
+  );
 });
-// ✅ Route pour enregistrer un message de contact
-// ✅ Route pour enregistrer un message de contact (VERSION CORRIGÉE)
+
+// ✅ Message de contact
 app.post('/contact', (req, res) => {
   const { name, email, message } = req.body;
 
@@ -95,38 +97,19 @@ app.post('/contact', (req, res) => {
     return res.status(400).send("Champs requis manquants.");
   }
 
-  fs.readFile(CONTACT_FILE, (err, data) => {
-    let messages = [];
-
-    if (!err && data.length > 0) {
-      try {
-        messages = JSON.parse(data);
-      } catch (parseError) {
-        console.error("Erreur parsing JSON :", parseError);
-        return res.status(500).send("Fichier JSON invalide.");
-      }
-    }
-
-    const newMessage = {
-      name,
-      email,
-      message,
-      timestamp: new Date().toISOString()
-    };
-    messages.push(newMessage);
-
-    fs.writeFile(CONTACT_FILE, JSON.stringify(messages, null, 2), (err) => {
+  db.query(
+    'INSERT INTO contact_messages (name, email, message) VALUES (?, ?, ?)',
+    [name, email, message],
+    (err) => {
       if (err) {
-        console.error("Erreur écriture :", err);
+        console.error('Erreur insertion message:', err);
         return res.status(500).send("Erreur enregistrement message.");
       }
-      console.log("✅ Nouveau message reçu :", newMessage);
-      res.status(201).json({ message: "Message enregistré avec succès." }); // Ajout de la réponse
-    });
-  });
+      res.status(201).json({ message: "Message enregistré avec succès." });
+    }
+  );
 });
 
-// ✅ Lancement du serveur (CORRIGÉ)
 app.listen(port, () => {
-  console.log(`✅ Serveur démarré sur http://localhost:${port}`); // Suppression du ')} excédentaire
+  console.log(`✅ Serveur démarré sur http://localhost:${port}`);
 });

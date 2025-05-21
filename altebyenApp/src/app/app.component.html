@@ -8,21 +8,24 @@
     <li><a routerLink="/zakat" routerLinkActive="active">زكاة</a></li>
     <li><a routerLink="/quran" routerLinkActive="active">قرآن</a></li>
     <li><a routerLink="/facts" routerLinkActive="active">هل تعلم</a></li>
-    <li><a routerLink="/quiz" routerLinkActive="active">اختبارات</a></li>
+    <li *ngIf="isAuthenticated">
+      <a routerLink="/quiz" routerLinkActive="active">اختبارات</a>
+    </li>
   </ul>
 
   <!-- Menu déroulant pour l'utilisateur -->
   <div class="user-dropdown">
     <i class="fas fa-user" style="font-size: 24px; cursor: pointer;"></i>
     <div id="dropdown-menu" class="dropdown-menu">
-      <ng-container *ngIf="isAuthenticated">
-        <p><span class="online-status"></span> {{ userName }}</p> <!-- Afficher le nom de l'utilisateur avec le point vert -->
-        <a href="#" (click)="logout()">تسجيل الخروج</a>
-      </ng-container>
-      <ng-container >
-        <a routerLink="/Login">تسجيل الدخول</a>
-        <a routerLink="/signup">إنشاء حساب</a>
-      </ng-container>
+      <ng-container *ngIf="isAuthenticated; else guestLinks">
+  <p><span class="online-status"></span> {{ userName }}</p>
+  <a href="#" (click)="logout()">تسجيل الخروج</a>
+</ng-container>
+
+<ng-template #guestLinks>
+  <a routerLink="/Login">تسجيل الدخول</a>
+  <a routerLink="/signup">إنشاء حساب</a>
+</ng-template>
     </div>
   </div>
 </nav>

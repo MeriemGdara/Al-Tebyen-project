@@ -11,16 +11,22 @@ export class AppComponent implements OnInit {
   isAuthenticated: boolean = false;
   userName: string | null = null;
 
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Vérifier si l'utilisateur est connecté au chargement du composant
+  // Abonnement pour mise à jour automatique
+  this.authService.isAuthenticated().subscribe((status: boolean) => {
+    this.isAuthenticated = status;
+
     const user = this.authService.getCurrentUser();
-    if (user) {
-      this.isAuthenticated = true;
+    if (status && user) {
       this.userName = user.fullname;
+    } else {
+      this.userName = null;
     }
-  }
+  });
+}
 
   // Méthode pour se déconnecter
   logout(): void {

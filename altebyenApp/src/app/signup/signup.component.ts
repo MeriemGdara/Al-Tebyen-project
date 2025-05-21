@@ -19,22 +19,25 @@ export class SignupComponent {
     private router: Router
   ) {
     this.signupForm = this.fb.group({
-      fullname: ['', Validators.required],
+      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   onSubmit() {
+      console.log('onSubmit appelé');
+      console.log('Form valid?', this.signupForm.valid);
+      console.log('Form values:', this.signupForm.value);
     if (this.signupForm.valid) {
-      const { fullname, email, password } = this.signupForm.value;
+      const { username, email, password } = this.signupForm.value;
 
       this.authService.isEmailTaken(email).subscribe(isTaken => {
         if (isTaken) {
           this.emailExists = true;
           this.success = false;
         } else {
-          this.authService.register(fullname, email, password).subscribe(user => {
+          this.authService.register(username, email, password).subscribe(user => {
             console.log('Utilisateur enregistré :', user.email);
             this.success = true;
             this.emailExists = false;

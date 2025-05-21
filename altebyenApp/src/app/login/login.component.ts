@@ -26,29 +26,48 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) {
-      this.showError = true;
-      return;
-    }
+  console.log('onSubmit appelé');
+  console.log('Form valid?', this.loginForm.valid);
+  console.log('Form values:', this.loginForm.value);
+  alert(JSON.stringify(this.loginForm.value));
 
-    const { email, password } = this.loginForm.value;
-
-    this.authService.authenticate(email, password).pipe(
-      catchError(error => {
-        console.error('Erreur d\'authentification:', error);
-        this.showError = true;
-        return of(null);
-      })
-    ).subscribe(user => {
-      if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user)); // Stocker l'utilisateur dans le localStorage
-        this.showError = false;
-        console.log('✅ Connexion réussie avec :', user.email);
-        this.router.navigate(['/home']);
-      } else {
-        this.showError = true;
-      }
-    });
+  if (this.loginForm.invalid) {
+    this.showError = true;
+    return;
   }
+
+  const { email, password } = this.loginForm.value;
+
+  this.authService.authenticate(email, password).pipe(
+    catchError(error => {
+      console.error('Erreur d\'authentification:', error);
+      this.showError = true;
+      return of(null);
+    })
+  ).subscribe(user => {
+    if (user) {
+      localStorage.setItem('currentUser', JSON.stringify(user)); // ✅ optionnel ici, déjà fait dans AuthService
+      this.authService.login(user); // ✅ MET À JOUR l’état global
+      this.showError = false;
+      console.log('✅ Connexion réussie avec :', user.email);
+
+      this.router.navigate(['/quiz']).then(
+        (success) => {
+          if (success) {
+            console.log('Navigation vers /quiz réussie');
+          } else {
+            console.error('❌ Échec de la navigation vers /quiz');
+          }
+        },
+        (error) => {
+          console.error('Erreur lors de la navigation vers /quiz:', error);
+          this.showError = true;
+        }
+      );
+    } else {
+      this.showError = true;
+    }
+  });
+}
 
 }

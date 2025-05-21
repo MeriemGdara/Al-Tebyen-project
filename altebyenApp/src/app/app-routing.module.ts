@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'zakat', component: ZakatComponent},
   { path: 'quran', component: QuranComponent},
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: 'quiz', component: QuizComponent, canActivate: [authGuard]},
+  { path: 'quiz', component: QuizComponent},
 ];
 
 

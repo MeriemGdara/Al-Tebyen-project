@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators'; // Assure-toi d'importer `map`
 import { User } from '../models/user.model';
 
@@ -12,19 +12,14 @@ export class AuthService {
   private loginUrl = 'http://localhost:3000/login';
   private emailCheckUrl = 'http://localhost:3000/emailExists';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Authentifier l'utilisateur
   authenticate(email: string, password: string): Observable<User | null> {
-    return this.http.post<User[]>(this.loginUrl, { email, password }).pipe(
-      map(users => {
-        if (users.length > 0) {
-          const user = users[0];
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          return user;
-        } else {
-          return null;
-        }
+    return this.http.post<User>(this.loginUrl, { email, password }).pipe(
+      map(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        return user;
       }),
       catchError(error => {
         console.error('Erreur lors de l\'authentification:', error);
@@ -33,8 +28,8 @@ export class AuthService {
     );
   }
 
-  register(fullname: string, email: string, password: string): Observable<User> {
-    return this.http.post<User>(this.registerUrl, { fullname, email, password }).pipe(
+  register(username: string, email: string, password: string): Observable<User> {
+    return this.http.post<User>(this.registerUrl, { username, email, password }).pipe(
       catchError(error => {
         console.error('Erreur lors de l\'enregistrement:', error);
         return throwError(() => new Error('Échec de l\'enregistrement'));
@@ -50,27 +45,29 @@ export class AuthService {
       })
     );
   }
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
 
-  logout(): void {
-    // Supprime l'utilisateur connecté du localStorage
-    localStorage.removeItem('currentUser');
-    console.log('Utilisateur déconnecté.');
+  isAuthenticated(): Observable<boolean> {
+    return this.loggedIn.asObservable();
   }
+
+  login(user: any) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.loggedIn.next(true);
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+    this.loggedIn.next(false);
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem('user');
+  }
+
 
   // Récupérer l'utilisateur connecté
   getCurrentUser(): User | null {
     return JSON.parse(localStorage.getItem('currentUser') || 'null');
-  }
-
-  // Vérifier si l'utilisateur est connecté
-  isLoggedIn(): boolean {
-    return !!this.getCurrentUser();
-  }
-
-  // Vérifier si l'utilisateur est connecté
-  isAuthenticated(): boolean {
-    // Par exemple, vérifiez la présence d'un token dans le localStorage
-    const userToken = localStorage.getItem('userToken'); // ou tout autre méthode que vous utilisez pour l'authentification
-    return !!userToken; // Retourne vrai si un token existe
   }
 }
