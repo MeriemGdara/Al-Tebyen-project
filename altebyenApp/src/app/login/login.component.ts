@@ -26,10 +26,6 @@ export class LoginComponent {
   }
 
   onSubmit() {
-  console.log('onSubmit appelé');
-  console.log('Form valid?', this.loginForm.valid);
-  console.log('Form values:', this.loginForm.value);
-  alert(JSON.stringify(this.loginForm.value));
 
   if (this.loginForm.invalid) {
     this.showError = true;

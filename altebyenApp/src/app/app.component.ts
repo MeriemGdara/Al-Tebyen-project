@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service'; // Importer le service d'authentification
 
 @Component({
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   userName: string | null = null;
 
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router: Router) {}
 
   ngOnInit(): void {
   // Abonnement pour mise à jour automatique
@@ -33,5 +34,7 @@ export class AppComponent implements OnInit {
     this.authService.logout();
     this.isAuthenticated = false;
     this.userName = null;
+        this.router.navigate(['/']); // <-- Redirection après logout
+
   }
 }

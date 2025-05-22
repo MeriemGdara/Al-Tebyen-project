@@ -6,7 +6,6 @@
          (click)="loadSurah(surah.number)"
          [attr.data-number]="surah.number">
       <div class="surah-info">
-        <span class="surah-number">{{ surah.number }}.</span>
         <div class="surah-names">
           <span class="arabic-name">{{ surah.name }}</span>
         </div>
@@ -20,12 +19,11 @@
     <div class="surah-header">
       <div class="surah-title">
         <h2>
-          <span class="surah-number">{{ currentSurah.number }}.</span>
-          <span class="arabic-title">{{ currentSurah.name }}</span>
+          <span class="arabic-title">- {{ currentSurah.name }} -</span>
         </h2>
         <p class="revelation-type">
           <i class="fas fa-info-circle"></i>
-          {{ currentSurah.revelationType }} - {{ currentSurah.ayahs.length }} Versets
+          {{ currentSurah.revelationType }} - {{ currentSurah.ayahs.length }} آيات
         </p>
       </div>
     </div>
