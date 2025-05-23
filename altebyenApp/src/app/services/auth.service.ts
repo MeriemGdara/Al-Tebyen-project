@@ -18,14 +18,18 @@ export class AuthService {
   authenticate(email: string, password: string): Observable<User | null> {
     return this.http.post<User>(this.loginUrl, { email, password }).pipe(
       map(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify(user)); // user contient aussi role
         return user;
       }),
       catchError(error => {
-        console.error('Erreur lors de l\'authentification:', error);
         return throwError(() => new Error('Échec de l\'authentification'));
       })
     );
+  }
+
+  getUserRole(): string | null {
+    const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    return user ? user.role : null;
   }
 
   register(username: string, email: string, password: string): Observable<User> {

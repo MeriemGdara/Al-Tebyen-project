@@ -7,9 +7,12 @@
     <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">الصفحة الرئيسية</a></li>
     <li><a routerLink="/zakat" routerLinkActive="active">زكاة</a></li>
     <li><a routerLink="/quran" routerLinkActive="active">قرآن</a></li>
-    <li><a routerLink="/facts" routerLinkActive="active">هل تعلم</a></li>
+    <li><a routerLink="/biblio" routerLinkActive="active">هل تعلم</a></li>
     <li *ngIf="isAuthenticated">
       <a routerLink="/quiz" routerLinkActive="active">اختبارات</a>
+    </li>
+    <li>
+      <a *ngIf="isAdmin" routerLink="/admin">لوحة الإدارة</a>
     </li>
   </ul>
 

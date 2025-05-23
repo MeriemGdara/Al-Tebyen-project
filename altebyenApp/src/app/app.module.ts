@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,8 @@ import { QuizComponent } from './quiz/quiz.component';
 import { SignupComponent } from './signup/signup.component';
 import { ZakatComponent } from './zakat/zakat.component';
 import {QuranComponent} from './quran/quran.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { BiblioComponent } from './biblio/biblio.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,14 +22,17 @@ import {QuranComponent} from './quran/quran.component';
     HomeComponent,
     ZakatComponent,
     QuizComponent,
-    QuranComponent
+    QuranComponent,
+    AdminDashboardComponent,
+    BiblioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

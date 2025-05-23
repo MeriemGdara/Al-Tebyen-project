@@ -1,0 +1,183 @@
+/* Container : menu à gauche et vidéo à droite */
+.container {
+  display: flex;
+  flex-direction: row; /* Menu à gauche, vidéo à droite */
+  height: 100vh;
+  min-height: 600px;
+  background: linear-gradient(135deg, #e9f1ec 0%, #cfe6d7 100%);
+  font-family: 'Amiri', serif;
+  position: relative;
+}
+
+/* Menu : arrondi à droite et position sticky à gauche */
+.menu {
+  width: 280px;
+  background: white;
+  padding: 40px 30px;
+  border-radius: 0 20px 20px 0; /* arrondi à droite */
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.07); /* ombre côté droit */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  font-family: 'Cairo', sans-serif;
+  color: #1f3d2f;
+  z-index: 10;
+}
+
+/* La ligne verticale sur la droite du menu */
+.menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 25%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.45) 75%,
+    transparent 100%);
+  border-radius: 0 20px 20px 0;
+  pointer-events: none;
+}
+
+/* Titre aligné à gauche */
+.menu h2 {
+  width: 100%;
+  color: #2f4f2f;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: left;
+  letter-spacing: 0.8px;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #64a46b;
+  text-shadow: none;
+}
+
+/* Boutons alignés à gauche */
+.menu button {
+  width: 100%;
+  padding: 15px 25px;
+  margin-bottom: 18px;
+  background: #c6e3cb;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2f4f2f;
+  text-align: left;
+  transition:
+    background 0.3s ease,
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative;
+  letter-spacing: 0.3px;
+}
+
+/* Bouton actif */
+.menu button.active {
+  background: #64a46b;
+  color: #fff;
+  transform: translateX(15px); /* Se déplace vers la droite */
+  box-shadow: 0 4px 10px rgba(100, 164, 107, 0.3);
+}
+
+/* Tick à droite du bouton actif */
+.menu button.active::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #dff2d8;
+  text-shadow: 0 0 3px #9acd7f;
+}
+
+/* Section vidéo : prend le reste de l'espace */
+.video-player {
+  flex-grow: 1;
+  background: radial-gradient(ellipse at center, #2c3e50 0%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.video-container {
+  width: 90%;
+  height: 90%;
+  max-width: 1200px;
+  background-color: #000;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+/* Effet de reflet sur le conteneur vidéo */
+.video-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 100%);
+  border-radius: 15px 15px 0 0;
+  pointer-events: none;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column; /* Menu en haut, vidéo en bas */
+  }
+
+  .menu {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    padding: 30px;
+    position: relative;
+  }
+
+  .menu::before {
+    width: 100%;
+    height: 3px;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.45) 25%,
+      rgba(255, 255, 255, 0.7) 50%,
+      rgba(255, 255, 255, 0.45) 75%,
+      transparent 100%);
+    border-radius: 0 0 20px 20px;
+  }
+
+  .menu button.active {
+    transform: translateY(-10px); /* vers le haut en responsive */
+  }
+
+  .video-player {
+    height: 60vh;
+    padding: 20px;
+  }
+}

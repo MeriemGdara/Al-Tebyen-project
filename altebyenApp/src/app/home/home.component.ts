@@ -86,7 +86,6 @@ export class HomeComponent implements OnInit {
         alert('Message envoyé et sauvegardé avec succès !');
         this.contact = { name: '', email: '', message: '' }; // Réinitialisation
       },
-      error: () => alert('Erreur lors de l\'envoi au serveur.')
     });
   }
 }

@@ -1,0 +1,164 @@
+<div class="nav-buttons" dir="rtl">
+  <button (click)="activeSection='users'">المستخدمون</button>
+  <button (click)="activeSection='messages'">الرسائل الواردة</button>
+  <button (click)="activeSection='management'">إدارة الاختبارات</button>
+</div>
+
+<!-- قسم المستخدمون -->
+<section *ngIf="activeSection === 'users'" dir="rtl">
+  <h2>قائمة المستخدمين</h2>
+
+  <!-- نموذج الإضافة / التعديل -->
+  <div class="form-group">
+    <h3>{{ isEditing ? 'تعديل مستخدم' : 'إضافة مستخدم' }}</h3>
+
+    <div class="form-row">
+      <div class="form-field">
+        <input type="text" placeholder="اسم المستخدم" [(ngModel)]="newUser.username" />
+      </div>
+      <div class="form-field">
+        <input type="email" placeholder="البريد الإلكتروني" [(ngModel)]="newUser.email" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <input type="password" placeholder="كلمة المرور" [(ngModel)]="newUser.password" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button *ngIf="!isEditing" (click)="onAddUser()">إضافة</button>
+      <button *ngIf="isEditing" (click)="onUpdateUser()">تحديث</button>
+      <button *ngIf="isEditing" class="secondary" (click)="onCancelEdit()">إلغاء</button>
+    </div>
+  </div>
+
+  <!-- جدول المستخدمين -->
+  <table>
+    <thead>
+      <tr>
+        <th>المعرف</th>
+        <th>اسم المستخدم</th>
+        <th>البريد الإلكتروني</th>
+        <th>الإجراءات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <div class="table-actions">
+            <button (click)="onEditUser(user)">تعديل</button>
+            <button class="danger" (click)="onDeleteUser(user.id)">حذف</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- قسم الرسائل الواردة -->
+<section *ngIf="activeSection === 'messages'" dir="rtl">
+  <h2>الرسائل الواردة</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>الاسم</th>
+        <th>البريد الإلكتروني</th>
+        <th>الرسالة</th>
+        <th>التاريخ</th>
+        <th>تمت القراءة</th>
+        <th>اتصال</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let msg of messages">
+        <td>{{ msg.name }}</td>
+        <td>{{ msg.email }}</td>
+        <td>{{ msg.message }}</td>
+        <td>{{ msg.timestamp | date:'short' }}</td>
+        <td>
+          <button
+            [ngClass]="msg.read === 1 ? '' : 'danger'"
+            (click)="toggleRead(msg)">
+            {{ msg.read === 1 ? 'مقروء' : 'غير مقروء' }}
+          </button>
+        </td>
+        <td>
+          <button
+            [ngClass]="{ 'used': repliedEmails.includes(msg.email) }"
+            (click)="replyToEmail(msg.email)">
+            الرد
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- قسم إدارة الفئات / الأسئلة / الخيارات -->
+<section *ngIf="activeSection === 'management'" dir="rtl">
+  <h2>إدارة الاختبارات</h2>
+
+  <!-- إضافة فئة -->
+  <div class="form-group">
+    <h3>إضافة فئة</h3>
+    <div class="form-row">
+      <div class="form-field">
+        <input type="text" placeholder="اسم الفئة" [(ngModel)]="newCategory.name" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button (click)="addCategory()">إضافة فئة</button>
+    </div>
+  </div>
+
+  <!-- إضافة سؤال -->
+  <div class="form-group">
+    <h3>إضافة سؤال</h3>
+    <div class="form-row">
+      <div class="form-field">
+        <select [(ngModel)]="newQuestion.category_id">
+          <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <textarea placeholder="نص السؤال" [(ngModel)]="newQuestion.question_text"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <input type="text" placeholder="الإجابة المتوقعة" [(ngModel)]="newQuestion.answer_text" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button (click)="addQuestion()">إضافة سؤال</button>
+    </div>
+  </div>
+
+  <!-- إضافة خيار -->
+  <div class="form-group">
+    <h3>إضافة خيار</h3>
+    <div class="form-row">
+      <div class="form-field">
+        <select [(ngModel)]="newOption.question_id">
+          <option *ngFor="let q of questions" [value]="q.id">{{ q.question_text | slice:0:30 }}...</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <input type="text" placeholder="نص الخيار" [(ngModel)]="newOption.option_text" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button (click)="addOption()">إضافة خيار</button>
+    </div>
+  </div>
+</section>
